@@ -1,0 +1,42 @@
+// Memorized functions improve performance when they are repeatedly called with the same arguments.
+
+function sum(n) {
+    let sum = 0
+    for (let i = 0; i < n; i++) {
+        sum += n
+    }
+    return sum
+}
+
+
+function memoize(fn) {
+    let cache = {}
+    console.log(cache)
+    return function (n) {
+        let isPresentInCache = cache[n] == undefined;
+        console.log(isPresentInCache, cache[n])
+        if (!isPresentInCache) {
+            let result = cache[n]
+            console.log(cache)
+            return result
+        } else {
+            let result = fn(n)
+            cache[n] = result
+            return result
+        }
+    }
+}
+
+let a = memoize(sum)
+console.time();
+console.log(a(5))
+console.timeEnd();
+console.time();
+console.log(a(3))
+console.timeEnd();
+console.time()
+console.log(a(10))
+console.timeEnd()
+console.time()
+console.log(a(10))
+console.timeEnd()
